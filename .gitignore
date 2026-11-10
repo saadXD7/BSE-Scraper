@@ -1,1 +1,12 @@
+# Python cache
 __pycache__/
+*.pyc
+
+# Environments and Secrets
+.env
+venv/
+.venv/
+env/
+
+# IDEs
+.vscode/
