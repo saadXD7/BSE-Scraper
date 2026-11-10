@@ -2,40 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BSE Top Gainers Live</title>
+    <title>BSE Market Scraper</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f9; padding: 2rem; }
-        .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #0056b3; color: white; }
-        .positive { color: #28a745; font-weight: bold; }
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f8f9fa; }
+        .header { background-color: #3b66c4; color: white; padding: 10px 20px; display: inline-block; font-size: 24px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th { background-color: #004ba0; color: white; padding: 15px; text-align: left; }
+        td { padding: 12px 15px; border-bottom: 1px solid #ddd; }
+        tr:hover { background-color: #f1f5f9; }
+        .positive { color: #008000; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>BSE India - Live Top Gainers (Equity)</h2>
-        <table>
-            <thead>
+
+    <div class="header">BSE India - Live Top Gainers (Equity)</div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Security Code</th>
+                <th>Company Name</th>
+                <th>LTP (₹)</th>
+                <th>% Change</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if data %}
+                {% for item in data %}
                 <tr>
-                    <th>Security Code</th>
-                    <th>Company Name</th>
-                    <th>LTP (₹)</th>
-                    <th>% Change</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for gainer in gainers %}
-                <tr>
-                    <td>{{ gainer.security_code }}</td>
-                    <td>{{ gainer.company_name }}</td>
-                    <td>{{ gainer.ltp }}</td>
-                    <td class="positive">{{ gainer.pct_change }}%</td>
+                    <td>{{ item.security_code }}</td>
+                    <td>{{ item.company_name }}</td>
+                    <td>{{ item.ltp }}</td>
+                    <td class="positive">+{{ item.change }}%</td>
                 </tr>
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 30px;">Loading live market data...</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
 </body>
 </html>
