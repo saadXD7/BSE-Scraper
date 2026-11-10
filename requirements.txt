@@ -3,4 +3,4 @@ uvicorn
 playwright
 jinja2
 pymupdf
-groq
+groqpython-dotenv
